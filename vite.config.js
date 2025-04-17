@@ -4,5 +4,10 @@ import myPlugin from './vitePlugin/myPlugin'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(),myPlugin()],
+  build: {
+    rollupOptions: {
+      plugins: ['a']
+    }
+  },
+  plugins: [vue(),myPlugin(['a'])],
 })

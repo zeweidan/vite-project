@@ -15,9 +15,21 @@ export default function myPlugin() {
           return `export const msg = "from virtual module"`
         }
       },
-      buildStart() {
-        console.log('buildStart')
-        exec('git submodule update')
+      options(options) {
+        console.log('options', options)
+        return {
+            ...options,
+            plugins: ['b']
+        }
+      },
+      async buildStart(option) {
+        console.log('option', option)
+        await new Promise((resolve, reject) => {
+            console.log('buildStart')
+            exec('git submodule update --remote', (res) => {
+                resolve()
+            })
+        })
       }
     }
   }
